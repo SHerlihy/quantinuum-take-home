@@ -1,11 +1,11 @@
-import DisplayCat from "./features/displayCat/DisplayCat";
 import Layout from "./features/shared/Layout";
 import TagSearch from "./features/tagSearch/TagSearch";
+import CatItem from "./features/displayCat/CatItem";
 
 export default function App() {
     return (
         <Layout>
-            <DisplayCat className="w-50 h-50"/>
+            <CatItem />
             <TagSearch />
         </Layout>
     )
