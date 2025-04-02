@@ -1,12 +1,10 @@
-import { Button, Input, Switch } from "@cqcl/quantinuum-ui";
-import Layout from "./Layout";
+import Layout from "./features/shared/Layout";
+import TagSearch from "./features/tagSearch/TagSearch";
 
 export default function App() {
     return (
         <Layout>
-            <Button variant="outline">Hello</Button>
-            <Input placeholder="say something"></Input>
-            <Switch />
+            <TagSearch />
         </Layout>
     )
 }
