@@ -1,15 +1,18 @@
 import { useState } from "react";
 import DisplayCat from "./features/displayCat/DisplayCat";
-import { SaysText } from "./features/displayCat/SaysText";
 import Layout from "./features/shared/Layout";
 import TagSearch from "./features/tagSearch/TagSearch";
+import { ThoughtText } from "./features/displayCat/SaysText";
 
 export default function App() {
-    const [says, setSays] = useState<string>("")
+    const [said, setSaid] = useState<string>("")
+    const [thought, setThought] = useState<string>("")
+
     return (
         <Layout>
-            <DisplayCat className="w-50 h-50"/>
-            <SaysText says={says} setSays={setSays}  submitSays={(w)=>{console.log(w)}}/> 
+            <DisplayCat className="w-50 h-50" />
+            <p>{said}</p>
+            <ThoughtText thought={thought} setThought={setThought} submitThought={(says) => { setSaid(says) }} />
             <TagSearch />
         </Layout>
     )
