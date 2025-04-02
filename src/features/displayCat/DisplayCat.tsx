@@ -39,7 +39,7 @@ export default function DisplayCat({ id, text, ...restProps }: React.HTMLAttribu
     const urlImgSmall = ROOT_URL + `/${data.id}` + "?type=xsmall"
 
     let urlImgMed = ROOT_URL + `/${data.id}`
-    if (text) {
+    if (text && text!=="") {
         urlImgMed += `/says/${text}`
     }
 

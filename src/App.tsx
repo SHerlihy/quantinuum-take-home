@@ -10,7 +10,10 @@ export default function App() {
 
     return (
         <Layout>
-            <DisplayCat className="w-50 h-50" />
+            <DisplayCat
+                text={said}
+                className="w-50 h-50"
+            />
             <p>{said}</p>
             <ThoughtText thought={thought} setThought={setThought} submitThought={(says) => { setSaid(says) }} />
             <TagSearch />
