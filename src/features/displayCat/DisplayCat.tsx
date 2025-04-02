@@ -14,8 +14,6 @@ export default function DisplayCat({ id }: { id?: string }) {
                 catUrl += `/${id}`
             }
 
-            console.log(catUrl)
-
             const res = await fetch(catUrl, {
                 method: "GET",
                 headers: {
@@ -39,13 +37,10 @@ export default function DisplayCat({ id }: { id?: string }) {
         return <p>Pending</p>
     }
 
-    return <p>{data.id}</p>
-}
+    const urlImgSmall = ROOT_URL + `/${data.id}` + "?type=xsmall"
+    const urlImgMed = ROOT_URL + `/${data.id}` + "?type=medium"
 
-//
-// const urlImgSmall = ROOT_URL + `/${data.id}` + "?type=xsmall"
-// const urlImgMed = ROOT_URL + `/${data.id}` + "?type=medium"
-//
-// return (
-//     <CatImage urlImgSmall={urlImgSmall} urlImgMed={urlImgMed} />
-// )
+    return (
+        <CatImage urlImgSmall={urlImgSmall} urlImgMed={urlImgMed} />
+    )
+}
