@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function CatImage({ urlImgMed, urlImgSmall }: { urlImgMed: string, urlImgSmall: string }) {
+export default function CatImage({ urlImgMed, urlImgSmall, ...restProps }: React.HTMLAttributes<HTMLDivElement> & { urlImgMed: string, urlImgSmall: string }) {
     const [imgLoaded, setLoaded] = useState(false)
     return (
         <div
@@ -13,9 +13,12 @@ bg-cover
                 backgroundImage: `url(${urlImgSmall})`,
                 filter: `blur(${imgLoaded ? "0" : "12px"})`
             }}
+
+            {...restProps}
         >
             <img
                 src={urlImgMed}
+                className="h-full w-full"
 
                 onLoad={() => {
                     setLoaded(true)

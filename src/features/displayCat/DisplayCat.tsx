@@ -4,8 +4,7 @@ import CatImage from "./CatImage";
 
 const ROOT_URL = "https://cataas.com/cat"
 
-export default function DisplayCat({ id }: { id?: string }) {
-
+export default function DisplayCat({ id, ...restProps }: React.HTMLAttributes<HTMLDivElement> & { id?: string }) {
     const { isPending, isError, data, error } = useQuery({
         queryKey: [QueryKey.cat],
         queryFn: async () => {
@@ -41,6 +40,6 @@ export default function DisplayCat({ id }: { id?: string }) {
     const urlImgMed = ROOT_URL + `/${data.id}` + "?type=medium"
 
     return (
-        <CatImage urlImgSmall={urlImgSmall} urlImgMed={urlImgMed} />
+        <CatImage urlImgSmall={urlImgSmall} urlImgMed={urlImgMed} {...restProps} />
     )
 }
