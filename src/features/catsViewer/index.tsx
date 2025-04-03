@@ -3,10 +3,30 @@ import { useQuery } from '@tanstack/react-query'
 import { Route } from '@/routes'
 import CatsPagination from './CatsPagination'
 import CatItem from './CatItem'
+import { createContext, ReactNode, useContext } from 'react'
 
 const CATS_PER_PAGE = 10
 
-function CatsViewer() {
+type CatSchema = {
+    id: string
+    tags: string[]
+    mimeType: string
+    createdAt: string
+}
+
+type CatsViewerContextType = {
+    isError: boolean
+    isPending: boolean,
+    data: CatSchema[] | null
+}
+
+const CatsViewerContext = createContext<CatsViewerContextType>({
+    isError: false,
+    isPending: true,
+    data: null
+})
+
+function CatsViewer({ children }: { children: ReactNode }) {
     const { tag, page } = Route.useSearch()
 
     const { isPending, isError, data } = useQuery({
@@ -22,12 +42,38 @@ function CatsViewer() {
         }
     })
 
+    return (
+        <CatsViewerContext.Provider value={{ isPending, isError, data }}>
+            {children}
+        </CatsViewerContext.Provider>
+    )
+}
+
+function FetchError() {
+    const { isError } = useContext(CatsViewerContext)
+
     if (isError) {
         return <p>Error</p>
     }
+}
+
+CatsViewer.FetchError = FetchError
+
+function Pending() {
+    const { isPending } = useContext(CatsViewerContext)
 
     if (isPending) {
         return <p>Pending</p>
+    }
+}
+
+CatsViewer.Pending = Pending
+
+function Success() {
+    const { data } = useContext(CatsViewerContext)
+
+    if (!data) {
+        return null
     }
 
     return (
@@ -46,5 +92,7 @@ md:grid-cols-5
         </section>
     )
 }
+
+CatsViewer.Success = Success
 
 export default CatsViewer
