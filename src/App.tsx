@@ -10,8 +10,6 @@ export default function App() {
     return (
         <Layout>
             <CatsViewer />
-            <p>{tag}</p>
-            <CatItem />
             <TagSearch />
         </Layout>
     )

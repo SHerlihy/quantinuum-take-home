@@ -1,10 +1,8 @@
 import QueryKey from '@/shared/queryKeys'
 import { useQuery } from '@tanstack/react-query'
-import CatItem from '../displayCat/CatItem'
 import { Route } from '@/routes'
-import { Button, Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationPrevious } from '@cqcl/quantinuum-ui'
-import { Link } from '@tanstack/react-router'
-import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons'
+import CatsPagination from './CatsPagination'
+import CatItem from './CatItem'
 
 const CATS_PER_PAGE = 10
 
@@ -44,33 +42,7 @@ md:grid-cols-5
                 {data.map(({ id }) => <CatItem key={id} id={id} />)}
             </div>
             }
-            <Pagination>
-                <PaginationContent>
-                    <PaginationItem>
-                        <Button asChild>
-                            <Link
-                                from={Route.fullPath}
-                                search={(prev) => ({ ...prev, page: prev.page - 1 })}
-                            >
-                                <ChevronLeftIcon />
-                            </Link>
-                        </Button>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationEllipsis />
-                    </PaginationItem>
-                    <PaginationItem>
-                        <Button asChild>
-                            <Link
-                                from={Route.fullPath}
-                                search={(prev) => ({ ...prev, page: prev.page + 1 })}
-                            >
-                                <ChevronRightIcon />
-                            </Link>
-                        </Button>
-                    </PaginationItem>
-                </PaginationContent>
-            </Pagination>
+            <CatsPagination nextDisabled={data.length < 10} />
         </section>
     )
 }
