@@ -2,8 +2,9 @@ import QueryKey from '@/shared/queryKeys'
 import { useQuery } from '@tanstack/react-query'
 import CatItem from '../displayCat/CatItem'
 import { Route } from '@/routes'
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationPrevious } from '@cqcl/quantinuum-ui'
+import { Button, Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationPrevious } from '@cqcl/quantinuum-ui'
 import { Link } from '@tanstack/react-router'
+import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons'
 
 const CATS_PER_PAGE = 10
 
@@ -11,7 +12,7 @@ function CatsViewer() {
     const { tag, page } = Route.useSearch()
 
     const { isPending, isError, data } = useQuery({
-        queryKey: [QueryKey.cats + `${tag}` +`${page}`],
+        queryKey: [QueryKey.cats + `${tag}` + `${page}`],
         queryFn: async () => {
             const skip = `${(page - 1) * CATS_PER_PAGE}`
             const res = await fetch(`https://cataas.com/api/cats?tags=${tag}&skip=${skip}`)
@@ -46,27 +47,27 @@ md:grid-cols-5
             <Pagination>
                 <PaginationContent>
                     <PaginationItem>
-                        <Link
-                            from={Route.fullPath}
-                            search={(prev) => ({ ...prev, page: prev.page - 1 })}
-                        >prev</Link>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <Link
-                            from={Route.fullPath}
-                            search={(prev) => ({ ...prev, page: 1 })}
-                        />
+                        <Button asChild>
+                            <Link
+                                from={Route.fullPath}
+                                search={(prev) => ({ ...prev, page: prev.page - 1 })}
+                            >
+                                <ChevronLeftIcon />
+                            </Link>
+                        </Button>
                     </PaginationItem>
                     <PaginationItem>
                         <PaginationEllipsis />
                     </PaginationItem>
                     <PaginationItem>
-                        <Link
-                            from={Route.fullPath}
-                            search={(prev) => ({ ...prev, page: prev.page + 1 })}
-                        >
-                            {">"}
-                        </Link>
+                        <Button asChild>
+                            <Link
+                                from={Route.fullPath}
+                                search={(prev) => ({ ...prev, page: prev.page + 1 })}
+                            >
+                                <ChevronRightIcon />
+                            </Link>
+                        </Button>
                     </PaginationItem>
                 </PaginationContent>
             </Pagination>
