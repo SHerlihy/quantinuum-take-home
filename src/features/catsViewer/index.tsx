@@ -1,12 +1,15 @@
 import QueryKey from '@/shared/queryKeys'
 import { useQuery } from '@tanstack/react-query'
 import CatItem from '../displayCat/CatItem'
+import { Route } from '@/routes'
 
 function CatsViewer() {
+    const { tag } = Route.useSearch()
+
     const { isPending, isError, data } = useQuery({
-        queryKey: [QueryKey.cats+"angry"],
+        queryKey: [QueryKey.cats+`${tag}`],
         queryFn: async () => {
-            const res = await fetch("https://cataas.com/api/cats?tags=angry")
+            const res = await fetch(`https://cataas.com/api/cats?tags=${tag}`)
             if (!res.ok) {
                 throw new Error("Response not ok")
             }
@@ -26,11 +29,12 @@ function CatsViewer() {
     if (data.length === 0) {
         return <p>No cats found</p>
     }
+console.log(data)
 
     return (
         <section
             className='
-grid-cols-2
+grid grid-cols-2
 md:grid-cols-5
 '
         >
