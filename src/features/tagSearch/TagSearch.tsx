@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { Button, Command, CommandInput, CommandItem, CommandList } from "@cqcl/quantinuum-ui";
 import QueryKey from "@/shared/queryKeys";
+import { Link } from "@tanstack/react-router";
+import { Route } from "@/routes";
 
 export default function TagSearch() {
     const { isPending, isError, data } = useQuery({
@@ -29,7 +31,12 @@ export default function TagSearch() {
             <CommandInput placeholder="Search tags..." />
             <CommandList>
                 {data.map((tag) => <CommandItem key={`catTag-${tag}`} >
-                    <Button onClick={() => alert(tag)}>{tag}</Button>
+                    <Link
+                        from={Route.fullPath}
+                        search={{ tag: tag }}
+                    >
+                        {tag}
+                    </Link>
                 </CommandItem>
                 )}
             </CommandList>
