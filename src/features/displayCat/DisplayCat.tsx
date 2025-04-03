@@ -6,7 +6,7 @@ const ROOT_URL = "https://cataas.com/cat"
 
 export default function DisplayCat({ id, text, ...restProps }: React.HTMLAttributes<HTMLDivElement> & { id?: string, text?: string }) {
     const { isPending, isError, data, error } = useQuery({
-        queryKey: [QueryKey.cat],
+        queryKey: [QueryKey.cat+`${id}`],
         queryFn: async () => {
             let catUrl = ROOT_URL
             if (id) {

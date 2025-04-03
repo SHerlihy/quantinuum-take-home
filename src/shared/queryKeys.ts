@@ -1,6 +1,7 @@
 enum QueryKey {
     tags,
-    cat
+    cat,
+    cats
 }
 
 export default QueryKey
