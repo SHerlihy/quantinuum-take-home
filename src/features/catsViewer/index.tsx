@@ -2,17 +2,11 @@ import QueryKey from '@/shared/queryKeys'
 import { useQuery } from '@tanstack/react-query'
 import { Route } from '@/routes'
 import CatsPagination from './CatsPagination'
-import CatItem from './CatItem'
 import { createContext, ReactNode, useContext } from 'react'
+import CatItem from './catItem'
+import { CatSchema } from '../shared/cataasSchema'
 
 const CATS_PER_PAGE = 10
-
-type CatSchema = {
-    id: string
-    tags: string[]
-    mimeType: string
-    createdAt: string
-}
 
 type CatsViewerContextType = {
     isError: boolean
@@ -43,9 +37,11 @@ function CatsViewer({ children }: { children: ReactNode }) {
     })
 
     return (
-        <CatsViewerContext.Provider value={{ isPending, isError, data }}>
-            {children}
-        </CatsViewerContext.Provider>
+        <section>
+            <CatsViewerContext.Provider value={{ isPending, isError, data }}>
+                {children}
+            </CatsViewerContext.Provider>
+        </section>
     )
 }
 
@@ -77,7 +73,7 @@ function Success() {
     }
 
     return (
-        <section>
+        <>
             {data.length < 1 && <p>No cats found</p>}
             {data.length > 0 && <div
                 className='
@@ -89,7 +85,7 @@ md:grid-cols-5
             </div>
             }
             <CatsPagination nextDisabled={data.length < 10} />
-        </section>
+        </>
     )
 }
 

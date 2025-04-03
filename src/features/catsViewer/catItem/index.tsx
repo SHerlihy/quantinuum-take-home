@@ -9,12 +9,11 @@ export default function CatItem({ id }: { id?: string }) {
 
     return (
         <Card>
-            <DisplayCat
-                id={id}
-                text={said}
-                className="w-50 h-50"
-            />
-            <p>{said}</p>
+            <DisplayCat id={id}>
+                <DisplayCat.Pending />
+                <DisplayCat.FetchError />
+                <DisplayCat.Success text={said} className='w-50 h-50' />
+            </DisplayCat>
             <ThoughtText
                 thought={thought}
                 setThought={setThought}
